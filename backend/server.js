@@ -33,8 +33,7 @@ app.use(cors({
 app.use(express.json());
 mongoose
   .connect(
-    process.env.MONGO_URL ||
-      "mongodb+srv://spiny881_db_user:8p4g7wmqEZSFiTUI@pharmanear.2sd5gh7.mongodb.net/?retryWrites=true&w=majority&appName=PharmaNear",
+    process.env.MONGO_URL,
     {
       useNewUrlParser: true,
       useUnifiedTopology: true,
@@ -50,7 +49,7 @@ mongoose
   });
 
 const port = process.env.PORT || 5000;
-const JWT_SECRET = process.env.JWT_SECRET || "dev_secret";
+const JWT_SECRET = process.env.JWT_SECRET;
 
 // Test endpoint
 
