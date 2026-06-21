@@ -107,6 +107,7 @@ If you want to connect to a real MongoDB Atlas database, create `.env` files in 
 Otherwise, just skip this step—the app works completely out of the box!
 
 ### 4. Backend Setup
+in a diff terminal 
 ```bash
 cd backend
 pnpm start
@@ -168,7 +169,10 @@ Create `.env` files in both `backend` and `frontend` using these keys:
 
 - **❌ MongoDB Connection Error (`querySrv ECONNREFUSED _mongodb._tcp...`):** 
   - **On Render:** Your MongoDB Atlas cluster is blocking Render's IP. Go to MongoDB Atlas -> Security -> Network Access and add `0.0.0.0/0` (Allow Access From Anywhere).
-  - **Local Machine:** Your ISP or router is blocking the `mongodb+srv` DNS lookup. Change your computer's DNS to `8.8.8.8` (Google) or use a standard `mongodb://` connection string.
+  - **Local Machine:** Your ISP or router is blocking the special `mongodb+srv` connection string. Here are 3 ways to bypass this backend error:
+    1. **Zero-Config Bypass (Easiest):** Open `backend/.env` and leave `MONGO_URL` completely blank (`MONGO_URL=`). The server will automatically use the local in-memory database instead!
+    2. **Get Legacy String:** If you *must* connect to Atlas locally, get the older connection string format. Go to your Atlas Dashboard -> Connect -> Drivers -> Select Node.js **Version 2.2.12**. Copy the long string starting with `mongodb://`.
+    3. **Change DNS:** Change your computer's DNS to `8.8.8.8` (Google DNS).
 - **❌ Frontend Build Fails Locally:**
   - Make sure you approve Vite/esbuild to run by executing `pnpm approve-builds` in the frontend directory.
 

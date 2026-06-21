@@ -126,7 +126,7 @@ function FindMedicine() {
             />
           </div>
         </div>
-
+        {error && <p style={{ color: "red", textAlign: "center", marginBottom: "10px" }}>{error}</p>}
         <button className="fp-search-btn" onClick={handleSearch}>
           Search Nearby
         </button>
