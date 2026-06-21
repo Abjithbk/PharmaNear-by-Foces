@@ -5,8 +5,8 @@ services:
     env: node
     plan: free
     rootDir: backend
-    buildCommand: npm install
-    startCommand: npm start
+    buildCommand: pnpm install
+    startCommand: pnpm start
     envVars:
       - key: NODE_VERSION
         value: 18.x
@@ -22,7 +22,7 @@ services:
     name: pharmanear-frontend
     env: static
     rootDir: frontend
-    buildCommand: npm install && npm run build
+    buildCommand: pnpm install && pnpm run build
     staticPublishPath: dist
     envVars:
       - key: NODE_VERSION

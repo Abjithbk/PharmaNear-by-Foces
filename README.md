@@ -2,7 +2,7 @@
 
 **PharmaNear** is a full-stack web application designed to bridge the gap between users searching for specific medicines and nearby pharmacies that stock them. It offers an intuitive search experience for users and a secure admin dashboard for pharmacy owners to manage inventory and profile details efficiently.
 
-🌐 **Live Demo:** [https://pharmanear-frontend.onrender.com](https://pharmanear-frontend.onrender.com)
+🌐 **Live Demo:** [https://pharmanear-aneu.onrender.com](https://pharmanear-aneu.onrender.com)
 
 ---
 
@@ -159,7 +159,7 @@ This project is licensed under the MIT License.
 ## 📬 Contact
 
 - **Project Link:** [https://github.com/Foces-core/pharmanear](https://github.com/Foces-core/pharmanear)
-- **Live Demo:** [https://pharmanear-frontend.onrender.com](https://pharmanear-frontend.onrender.com)
+- **Live Demo:** [https://pharmanear-aneu.onrender.com](https://pharmanear-aneu.onrender.com)
 - **Issues:** Open an issue on GitHub for bugs or feature requests.
   
 ---
