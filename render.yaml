@@ -9,13 +9,12 @@ services:
     envVars:
       - key: NODE_VERSION
         value: 18.x
+      - key: MONGO_URL
+        sync: false # Requires manual entry of the database connection string in Render Dashboard
       - key: JWT_SECRET
         generateValue: true # Render automatically generates a secure string
       - key: CORS_ORIGIN
-        fromService:
-          type: web
-          name: pharmanear-frontend
-          property: url
+        value: "*" # Allow all origins initially
 
   # 2. The React/Vite Frontend
   - type: web
@@ -27,9 +26,6 @@ services:
     envVars:
       - key: NODE_VERSION
         value: 18.x
-      # This critical variable connects the frontend build to your live backend automatically
+      # You will need to manually set this in the Render dashboard after the backend deploys
       - key: VITE_BACKEND_URL
-        fromService:
-          type: web
-          name: pharmanear-backend
-          property: url
+        sync: false
