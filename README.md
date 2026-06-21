@@ -34,6 +34,10 @@
 ### 🏪 Pharmacy Profile (Admin)
 ![Pharmacy profile management dashboard](docs/screenshots/pharmacy-profile.png)
 
+### ⚠️ Common Errors (Now Fixed)
+If you previously saw this error where the backend failed to fetch drugs (`SyntaxError: Unexpected token '<', "<!DOCTYPE "... is not valid JSON`), it was caused by a double-slash `//api` in the URL. This has now been permanently resolved.
+![Error fetching medicine data due to double slash](docs/screenshots/search-error.png)
+
 ---
 
 ## 💻 Tech Stack
