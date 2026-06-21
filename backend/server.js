@@ -7,6 +7,7 @@ import mongoose from "mongoose";
 import Medicine from "./models/medicine.js";
 import Pharmacy from "./models/pharmacy.js";
 import Stock from "./models/stock.js";
+import { MongoMemoryServer } from "mongodb-memory-server";
 
 dotenv.config();
 
@@ -31,14 +32,16 @@ app.use(cors({
 }));
 
 app.use(express.json());
-if (!process.env.MONGO_URL) {
-  console.error("❌ ERROR: MONGO_URL is not defined in environment variables.");
-  console.error("Please create a .env file in the backend directory based on .env-sample.");
-  process.exit(1);
+let mongoUrl = process.env.MONGO_URL;
+
+if (!mongoUrl) {
+  console.log("⚠️ MONGO_URL not found. Starting in-memory MongoDB for local development...");
+  const mongoServer = await MongoMemoryServer.create();
+  mongoUrl = mongoServer.getUri();
 }
 
 mongoose
-  .connect(process.env.MONGO_URL)
+  .connect(mongoUrl)
   .then(() => {
     console.log("✅ Connected to MongoDB");
   })
@@ -56,7 +59,7 @@ mongoose
   });
 
 const port = process.env.PORT || 5000;
-const JWT_SECRET = process.env.JWT_SECRET;
+const JWT_SECRET = process.env.JWT_SECRET || "fallback_local_secret_key";
 
 // Test endpoint
 
