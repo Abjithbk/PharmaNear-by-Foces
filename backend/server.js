@@ -14,10 +14,12 @@ dotenv.config();
 
 const app = express();
 const allowedOrigins = [
-  "http://localhost:5173"
+  "http://localhost:5173",
+  "https://pharmanear-aneu.onrender.com"
 ];
 if (process.env.CORS_ORIGIN) {
-  allowedOrigins.push(process.env.CORS_ORIGIN);
+  // Support comma-separated origins
+  process.env.CORS_ORIGIN.split(",").map(o => o.trim()).forEach(o => allowedOrigins.push(o));
 }
 app.use(cors({
   origin: function (origin, callback) {
