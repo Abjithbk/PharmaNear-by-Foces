@@ -57,9 +57,17 @@ mongoose
     if (medCount === 0) {
       console.log("📦 Medicine database is empty. Seeding from NIH RxTerms API...");
       const { fetchDrugs } = await import("./medicine.js");
-      fetchDrugs().catch(err => console.error("Medicine seed error:", err.message));
+      // Wait for it to finish so that the production pharmacies seeder can find medicines
+      await fetchDrugs().catch(err => console.error("Medicine seed error:", err.message));
     } else {
       console.log(`📦 Medicine database has ${medCount} entries.`);
+    }
+
+    // Auto-seed pharmacies if empty
+    const pharmacyCount = await Pharmacy.countDocuments();
+    if (pharmacyCount === 0) {
+      const { seedProdPharmacies } = await import("./seedProdPharmacies.js");
+      await seedProdPharmacies();
     }
   })
   .catch((err) => {
