@@ -14,20 +14,27 @@ function FindMedicine() {
   const [error, setError] = useState("");
 
   const getLocation = () => {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          const { latitude, longitude } = position.coords;
-          setLocation(`${latitude}, ${longitude}`);
-          setError("");
-        },
-        (error) => {
-          setError("Error: " + error.message);
-        }
-      );
-    } else {
-      setError("Geolocation is not supported by this browser.");
-    }
+    return new Promise((resolve) => {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          (position) => {
+            const { latitude, longitude } = position.coords;
+            const locString = `${latitude}, ${longitude}`;
+            setLocation(locString);
+            setError("");
+            resolve(locString);
+          },
+          (error) => {
+            console.warn("Geolocation denied or failed:", error.message);
+            resolve("10.001, 76.320"); // Fallback to default
+          },
+          { timeout: 5000 }
+        );
+      } else {
+        console.warn("Geolocation is not supported by this browser.");
+        resolve("10.001, 76.320"); // Fallback to default
+      }
+    });
   };
 
   const handleSearch = async () => {
@@ -35,10 +42,15 @@ function FindMedicine() {
       setError("Please enter a medicine name");
       return;
     }
+    
+    setError(""); // Clear previous errors
+
     try {
-      if (!location) {
-        getLocation();
+      let currentLocation = location;
+      if (!currentLocation) {
+        currentLocation = await getLocation();
       }
+
       const response = await fetch(
         `${BACKEND_URL}/api/drugs?name=${encodeURIComponent(medicine)}`,
         {
@@ -48,6 +60,11 @@ function FindMedicine() {
           },
         }
       );
+      
+      if (!response.ok) {
+        throw new Error("API response was not ok");
+      }
+      
       const data = await response.json();
       navigate("/mappage", {
         state: {
@@ -55,7 +72,7 @@ function FindMedicine() {
           medicine: medicine,
           dosage: dosage,
           quantity: quantity,
-          userLocation: location
+          userLocation: currentLocation
         } 
       });
     } catch (error) {
