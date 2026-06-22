@@ -111,7 +111,7 @@ pnpm install:all
 > 1. Run `pnpm approve-builds` in the `frontend` folder (Press `a` then `Enter`).
 > 2. Run `pnpm approve-builds` in the `backend` folder (Press `a` then `Enter`).
 
-> **🛡️ Additional Security (Highly Recommended):** To protect yourself against malicious dependencies, we strongly recommend using the `sfw` (Safe Firewall) tool for all package manager commands. Whenever you run a networked installation, simply prepend your command with `sfw` (e.g., run `sfw pnpm install:all` instead of `pnpm install:all`).
+> **🛡️ Additional Security (Highly Recommended):** To protect yourself against malicious dependencies, we strongly recommend using the [`sfw` (Socket Firewall) tool](https://github.com/SocketDev/sfw-free) for all package manager commands. Whenever you run a networked installation, simply prepend your command with `sfw` (e.g., run `sfw pnpm install:all` instead of `pnpm install:all`).
 
 ### 3. Environment Variables (Optional for Local Dev)
 
