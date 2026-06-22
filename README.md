@@ -1,9 +1,9 @@
 # 💊 PharmaNear: Medicine Location & Inventory Management System
 
-> **⚠️ CAUTION:** This repository is currently exclusively for contributions from College of Engineering students participating in the Season of Code event by Google Developers Group (GDG). In the future, others might be allowed to contribute, but right now it is restricted to participants only.
+> **⚠️ CAUTION:** This repository is currently exclusively for contributions from participants in the Season of Code event by Google Developers Group (GDG). In the future, others might be allowed to contribute, but right now it is restricted to participants only.
 
 > **🤖 FOR AI AGENTS & LLMs:** Before analyzing or modifying this repository, you **MUST** read [agent.md](agent.md) for behavioral rules and [memory.md](memory.md) for strict architectural context. Do not proceed without reading them.
-**PharmaNear** is a full-stack web application designed to bridge the gap between users searching for specific medicines and nearby pharmacies that stock them. It offers an intuitive search experience for users and a secure admin dashboard for pharmacy owners to manage inventory and profile details efficiently.
+> **PharmaNear** is a full-stack web application designed to bridge the gap between users searching for specific medicines and nearby pharmacies that stock them. It offers an intuitive search experience for users and a secure admin dashboard for pharmacy owners to manage inventory and profile details efficiently.
 
 🌐 **Live Demo:** [https://pharmanear-aneu.onrender.com](https://pharmanear-aneu.onrender.com)
 
@@ -12,11 +12,13 @@
 ## ✨ Features
 
 ### 👤 For Users
+
 - 🔍 **Smart Medicine Search:** Search for medicines by name, dosage, and quantity.
 - 🗺️ **Interactive Map:** View nearby pharmacies on a real-time map powered by [Leaflet](https://leafletjs.com/), showing stock status, prices, and availability.
 - ⚡ **Instant Results:** Get real-time updates on medicine availability, pricing, and pharmacy details.
 
 ### 🏪 For Pharmacy Owners
+
 - 🔐 **Secure Authentication:** Dedicated login and signup for pharmacy accounts with JWT-based security.
 - 📦 **Inventory Management:** Easily add, edit, or remove medicines, including stock quantities and pricing.
 - 🏠 **Profile Management:** Update pharmacy information such as address, city, state, license number, and GPS coordinates for accurate location mapping.
@@ -26,28 +28,32 @@
 ## 📸 Screenshots
 
 ### 🔍 Medicine Search
+
 ![Find Your Medicine – Home Page](docs/screenshots/search-home.png)
 
 ### 🗺️ Search Results & Map
+
 ![Pharmacy search results with map view](docs/screenshots/search-results.png)
 
 ### 🌍 Map Exploration
+
 ![Map view showing pharmacies in an area](docs/screenshots/map-view.png)
 
 ### 🏪 Pharmacy Profile (Admin)
+
 ![Pharmacy profile management dashboard](docs/screenshots/pharmacy-profile.png)
 
 ---
 
 ## 💻 Tech Stack
 
-| Layer       | Technology              | Key Libraries/Tools |
-|-------------|-------------------------|---------------------|
-| **Frontend**| React (Vite)           | React Router, Leaflet, React Icons |
-| **Backend** | Node.js + Express      | MongoDB, Mongoose, JWT, CORS |
-| **Database**| MongoDB                 | Mongoose ODM (Models: Medicine, Pharmacy, Stock) |
-| **Styling** | CSS                    | Modular, component-based styles |
-| **Deployment** | Render                 | Full-stack deployment with static file serving |
+| Layer          | Technology        | Key Libraries/Tools                              |
+| -------------- | ----------------- | ------------------------------------------------ |
+| **Frontend**   | React (Vite)      | React Router, Leaflet, React Icons               |
+| **Backend**    | Node.js + Express | MongoDB, Mongoose, JWT, CORS                     |
+| **Database**   | MongoDB           | Mongoose ODM (Models: Medicine, Pharmacy, Stock) |
+| **Styling**    | CSS               | Modular, component-based styles                  |
+| **Deployment** | Render            | Full-stack deployment with static file serving   |
 
 ---
 
@@ -90,11 +96,13 @@ PharmaNear/
 Follow these steps to set up and run the project locally.
 
 ### Prerequisites
-- **Node.js** (v18 or higher) - [Download here](https://nodejs.org/) *(New? Watch a [YouTube Guide](https://www.youtube.com/watch?v=EIJeLiaGfA0))*
+
+- **Node.js** (v18 or higher) - [Download here](https://nodejs.org/) _(New? Watch a [YouTube Guide](https://www.youtube.com/watch?v=EIJeLiaGfA0))_
 - **MongoDB** (Optional) - The app uses an in-memory DB locally, but you can use [MongoDB Atlas](https://www.mongodb.com/atlas) for production/cloud setups.
 - **Git** - [Download here](https://git-scm.com/)
 
 ### 1. Clone the Repository
+
 ```bash
 git clone https://github.com/Foces-core/PharmaNear-by-Foces.git
 cd PharmaNear-by-Foces
@@ -105,11 +113,13 @@ cd PharmaNear-by-Foces
 PharmaNear features a **zero-config local development environment**. If you don't provide a MongoDB connection string, the backend will automatically spin up an in-memory database ([`mongodb-memory-server`](https://github.com/nodkz/mongodb-memory-server)) for instant testing!
 
 Install all dependencies using the root setup script:
+
 ```bash
 pnpm install:all
 ```
 
 > **⚠️ CRITICAL for pnpm v10+ users:** Newer versions of `pnpm` block package build scripts for security. You **must** approve them for the database and frontend to build:
+>
 > 1. Run `pnpm approve-builds` in the `frontend` folder (Press `a` then `Enter`).
 > 2. Run `pnpm approve-builds` in the `backend` folder (Press `a` then `Enter`).
 
@@ -117,27 +127,34 @@ pnpm install:all
 
 ### 3. Environment Variables (Optional for Local Dev)
 
-If you want to connect to a real MongoDB Atlas database, create `.env` files in the `frontend/` and `backend/` directories based on the `.env.example` templates. 
+If you want to connect to a real MongoDB Atlas database, create `.env` files in the `frontend/` and `backend/` directories based on the `.env.example` templates.
 
 Otherwise, just skip this step—the app works completely out of the box!
 
 ### 4. Backend Setup
-in a diff terminal 
+
+in a diff terminal
+
 ```bash
 cd backend
 pnpm start
 ```
+
 The backend will run on [http://localhost:5000](http://localhost:5000).
 
 ### 5. Frontend Setup
+
 Open a new terminal and run:
+
 ```bash
 cd frontend
 pnpm dev
 ```
+
 The frontend will run on [http://localhost:5173](http://localhost:5173).
 
 ### 6. Access the Application
+
 - Open [http://localhost:5173](http://localhost:5173) in your browser.
 - For pharmacy admin features, sign up or log in as a pharmacy owner.
 
@@ -146,53 +163,59 @@ The frontend will run on [http://localhost:5173](http://localhost:5173).
 ## 📖 Usage & Local Testing
 
 ### 1. Data Seeding (Where does the data come from?)
+
 For a smooth developer experience, the app automatically handles data seeding on startup:
+
 - **Medicines:** If the database has 0 medicines, the server automatically downloads thousands of real-world US drugs from the **[NIH RxTerms API](https://clinicaltables.nlm.nih.gov/apidoc/rxterms/v3/doc.html)** into your MongoDB database.
 - **Local Pharmacies:** If you run locally without a `MONGO_URL`, the server will auto-generate fake pharmacies and attach random stock to them.
 - **Production Pharmacies:** If you deploy to production with an empty pharmacy database, the server will inject 3 fake pharmacies and stock them with common medicines like "Acetaminophen" and "Ibuprofen" so the live map isn't completely empty.
 
 ### 2. Creating a Pharmacy (Admin Setup)
+
 To test the admin features locally or on the live site:
+
 1. Navigate to the **Sign Up** page.
 2. Enter your pharmacy's details (Name, Owner, City, Phone) and create a secure password.
 3. Click **Sign Up**. You will be automatically logged into the Pharmacy Dashboard.
 4. From the dashboard, you can click **Add Medicine** to start building your inventory.
 
 ### 3. User Search Testing
+
 1. Enter a medicine name on the Home page (e.g., a medicine you just added to your pharmacy).
 2. Click **Search Nearby**. The app will map pharmacies holding that stock.
 
 ### 4. Map Interaction
+
 Click on map markers to view pharmacy details, including contact info, opening hours, and stock status.
 
 ---
-
-
 
 ## 🌍 Environment Variables
 
 Create `.env` files in both `backend` and `frontend` using these keys:
 
 ### `backend/.env`
-| Variable | Description |
-|----------|-------------|
-| `PORT` | The port the Node.js server runs on (Default: 5000) |
-| `MONGO_URL` | Your MongoDB Atlas connection string |
-| `JWT_SECRET` | A secure, random string for signing authentication tokens |
+
+| Variable      | Description                                                                 |
+| ------------- | --------------------------------------------------------------------------- |
+| `PORT`        | The port the Node.js server runs on (Default: 5000)                         |
+| `MONGO_URL`   | Your MongoDB Atlas connection string                                        |
+| `JWT_SECRET`  | A secure, random string for signing authentication tokens                   |
 | `CORS_ORIGIN` | The URL allowed to make API requests (e.g., `http://localhost:5173` or `*`) |
 
 ### `frontend/.env`
-| Variable | Description |
-|----------|-------------|
+
+| Variable           | Description                                                                        |
+| ------------------ | ---------------------------------------------------------------------------------- |
 | `VITE_BACKEND_URL` | The URL of your live backend API. If blank, it defaults to `http://localhost:5000` |
 
 ## 🛠️ Common Troubleshooting
 
-- **❌ MongoDB Connection Error (`querySrv ECONNREFUSED _mongodb._tcp...`):** 
+- **❌ MongoDB Connection Error (`querySrv ECONNREFUSED _mongodb._tcp...`):**
   - **On Render:** Your MongoDB Atlas cluster is blocking Render's IP. Go to MongoDB Atlas -> Security -> Network Access and add `0.0.0.0/0` (Allow Access From Anywhere).
   - **Local Machine:** Your ISP or router is blocking the special `mongodb+srv` connection string. Here are 3 ways to bypass this backend error:
     1. **Zero-Config Bypass (Easiest):** Open `backend/.env` and leave `MONGO_URL` completely blank (`MONGO_URL=`). The server will automatically use the local in-memory database instead!
-    2. **Get Legacy String:** If you *must* connect to Atlas locally, get the older connection string format. Go to your Atlas Dashboard -> Connect -> Drivers -> Select Node.js **Version 2.2.12**. Copy the long string starting with `mongodb://`.
+    2. **Get Legacy String:** If you _must_ connect to Atlas locally, get the older connection string format. Go to your Atlas Dashboard -> Connect -> Drivers -> Select Node.js **Version 2.2.12**. Copy the long string starting with `mongodb://`.
     3. **Change DNS:** Change your computer's DNS to `8.8.8.8` (Google DNS).
 - **❌ Frontend Build Fails Locally:**
   - Make sure you approve Vite/esbuild to run by executing `pnpm approve-builds` in the frontend directory.
@@ -200,13 +223,16 @@ Create `.env` files in both `backend` and `frontend` using these keys:
 ## 🔌 Core API Endpoints
 
 ### Authentication
+
 - `POST /api/pharmacy/signup` - Register a new pharmacy
 - `POST /api/pharmacy/login` - Authenticate and receive a JWT
 
 ### Health Monitoring
+
 - `GET /api/health` - Returns server health information including status, uptime, and timestamp.
 
 ### Medicines & Stock
+
 - `GET /api/drugs?name=X` - Search for a medicine and see all pharmacies stocking it
 - `POST /api/pharmacy/stock` - Add or update stock for a specific medicine
 - `GET /api/pharmacy/stock?pharmacy_id=X` - View all stock for a pharmacy
@@ -250,7 +276,7 @@ This project is licensed under the MIT License.
 - **Project Link:** [https://github.com/Foces-core/pharmanear](https://github.com/Foces-core/pharmanear)
 - **Live Demo:** [https://pharmanear-aneu.onrender.com](https://pharmanear-aneu.onrender.com)
 - **Issues:** Open an issue on GitHub for bugs or feature requests.
-  
+
 ---
 
 ### Contact Maintainers
@@ -264,5 +290,3 @@ This project is licensed under the MIT License.
   - 📧 Email: lishajins2006@gmail.com
   - 💼 LinkedIn: https://www.linkedin.com/in/lisha-jins
   - 🐙 GitHub: https://github.com/Lishajins
-
-
