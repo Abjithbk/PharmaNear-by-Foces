@@ -1,6 +1,10 @@
 {
   "name": "pharmanear-root",
   "private": true,
+  "engines": {
+    "npm": "please-use-pnpm-instead",
+    "pnpm": ">=8"
+  },
   "scripts": {
     "test": "pnpm run test:backend && pnpm run test:frontend",
     "test:backend": "cd backend && pnpm test",
