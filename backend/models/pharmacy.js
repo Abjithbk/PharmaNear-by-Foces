@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 const pharmacySchema = new mongoose.Schema({
-  user_name: { type: String, required: true },
+  user_name: { type: String, required: true, unique: true },
   owner_name: { type: String, required: true },
   address: { type: String },
   license_number: { type: String, unique: false },

@@ -7,6 +7,7 @@ import mongoose from "mongoose";
 import Medicine from "./models/medicine.js";
 import Pharmacy from "./models/pharmacy.js";
 import Stock from "./models/stock.js";
+import rateLimit from "express-rate-limit";
 
 
 dotenv.config();
@@ -35,18 +36,23 @@ app.use(cors({
 
 app.use(express.json());
 let mongoUrl = process.env.MONGO_URL;
+export let mongoServerInstance = null;
 
 if (!mongoUrl) {
   console.log("⚠️ MONGO_URL not found. Starting in-memory MongoDB for local development...");
   const { MongoMemoryServer } = await import("mongodb-memory-server");
-  const mongoServer = await MongoMemoryServer.create();
-  mongoUrl = mongoServer.getUri();
+  mongoServerInstance = await MongoMemoryServer.create();
+  mongoUrl = mongoServerInstance.getUri();
 }
 
 mongoose
   .connect(mongoUrl)
   .then(async () => {
     console.log("✅ Connected to MongoDB");
+    
+    // Skip seeding during tests to prevent topology closed errors
+    if (process.env.NODE_ENV === "test") return;
+
     if (!process.env.MONGO_URL) {
       // Local dev: seed fake pharmacies, medicines, and stock
       const { seedFakeData } = await import("./seedLocalDB.js");
@@ -112,15 +118,42 @@ app.get("/", (req, res) => {
   res.send("server check");
 });
 
-app.get("/api/health", (req, res) => {
-  res.status(200).json({
-    status: "UP",
-    uptime: process.uptime(),
-    timestamp: new Date().toISOString(),
-  });
+app.get("/api/health", (_req, res) => {
+  try {
+    const state = mongoose.connection.readyState;
+    /**
+     * 0 = disconnected
+     * 1 = connected
+     * 2 = connecting
+     * 3 = disconnecting
+     * 99 = uninitialized
+    */
+
+    res.status(200).json({
+      status: state === 1 ? "healthy" : "unhealthy",
+      uptime: process.uptime(),
+      timestamp: new Date().toISOString(),
+      database: {
+        connected: state === 1,
+      },
+    })
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({
+      status: "error",
+      uptime: process.uptime(),
+      timestamp: new Date().toISOString(),
+    })
+  }
+})
+
+const authLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 10, // Limit each IP to 10 requests per window
+  message: { message: "Too many login/signup attempts, please try again later." }
 });
 
-app.post("/api/pharmacy/signup", async (req, res) => {
+app.post("/api/pharmacy/signup", authLimiter, async (req, res) => {
   try {
     const { user_name, owner_name, city, phone_number, password } = req.body;
 
@@ -180,7 +213,7 @@ app.post("/api/pharmacy/signup", async (req, res) => {
 });
 
 // LOGIN
-app.post("/api/pharmacy/login", async (req, res) => {
+app.post("/api/pharmacy/login", authLimiter, async (req, res) => {
   console.log("Login request received:", req.body);
 
   const { user_name, password } = req.body;
@@ -352,7 +385,10 @@ app.put("/api/pharmacy/profile", AuthMiddleware, async (req, res) => {
 // Add medicine stock for a pharmacy if medicine not exist it adds the medicine to the database and then adds to the stock
 app.post("/api/pharmacy/stock", AuthMiddleware, async (req, res) => {
   try {
-    const { pharmacy_id, medicine_name, quantity, price, strength } = req.body;
+    const { medicine_name, quantity, price, strength } = req.body;
+
+    // Use authenticated user's ID to prevent IDOR vulnerability
+    const pharmacy_id = req.user.id;
 
     // Validation
     if (!pharmacy_id)
@@ -502,8 +538,16 @@ app.get("/api/drugs", async (req, res) => {
 
 app.patch("/api/pharmacy/stock", AuthMiddleware, async (req, res) => {
   try {
-    const { pharmacy_id, medicine_name, quantity, price } = req.body;
+    const { medicine_name, quantity, price } = req.body;
     console.log("Request body:", req.body);
+
+    // Use authenticated user's ID to prevent IDOR vulnerability
+    const pharmacy_id = req.user.id;
+
+    // Block attempts to modify another pharmacy's stock
+    if (req.body.pharmacy_id && req.body.pharmacy_id !== req.user.id) {
+      return res.status(403).json({ message: "Forbidden: You can only modify your own pharmacy's stock" });
+    }
 
     if (!pharmacy_id || !medicine_name || !quantity || !price) {
       return res.status(400).json({ message: "Invalid stock data" });
@@ -541,7 +585,16 @@ app.patch("/api/pharmacy/stock", AuthMiddleware, async (req, res) => {
 
 app.delete("/api/pharmacy/stock", AuthMiddleware, async (req, res) => {
   try {
-    const { pharmacy_id, medicine_name } = req.body;
+    const { medicine_name } = req.body;
+
+    // Use authenticated user's ID to prevent IDOR vulnerability
+    const pharmacy_id = req.user.id;
+
+    // Block attempts to delete another pharmacy's stock
+    if (req.body.pharmacy_id && req.body.pharmacy_id !== req.user.id) {
+      return res.status(403).json({ message: "Forbidden: You can only modify your own pharmacy's stock" });
+    }
+
     if (!pharmacy_id || !medicine_name) {
       return res.status(400).json({ message: "Invalid stock data" });
     }

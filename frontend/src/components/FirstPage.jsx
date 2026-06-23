@@ -1,9 +1,11 @@
 import { useState } from "react";
 import { FaCapsules, FaSearch, FaSortNumericUp } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
-import './FirstPage.css';
+import "./FirstPage.css";
 
-const BACKEND_URL = (import.meta.env.VITE_BACKEND_URL || "http://localhost:5000").replace(/\/+$/, "");
+const BACKEND_URL = (
+  import.meta.env.VITE_BACKEND_URL || "http://localhost:5000"
+).replace(/\/+$/, "");
 
 function FindMedicine() {
   const [medicine, setMedicine] = useState("");
@@ -12,6 +14,7 @@ function FindMedicine() {
   const navigate = useNavigate();
   const [location, setLocation] = useState("");
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const getLocation = () => {
     return new Promise((resolve) => {
@@ -28,7 +31,7 @@ function FindMedicine() {
             console.warn("Geolocation denied or failed:", error.message);
             resolve("10.001, 76.320"); // Fallback to default
           },
-          { timeout: 5000 }
+          { timeout: 5000 },
         );
       } else {
         console.warn("Geolocation is not supported by this browser.");
@@ -42,10 +45,11 @@ function FindMedicine() {
       setError("Please enter a medicine name");
       return;
     }
-    
+
     setError(""); // Clear previous errors
 
     try {
+      setLoading(true);
       let currentLocation = location;
       if (!currentLocation) {
         currentLocation = await getLocation();
@@ -58,13 +62,13 @@ function FindMedicine() {
           headers: {
             "Content-Type": "application/json",
           },
-        }
+        },
       );
-      
+
       if (!response.ok) {
         throw new Error("API response was not ok");
       }
-      
+
       const data = await response.json();
       navigate("/mappage", {
         state: {
@@ -72,12 +76,14 @@ function FindMedicine() {
           medicine: medicine,
           dosage: dosage,
           quantity: quantity,
-          userLocation: currentLocation
-        } 
+          userLocation: currentLocation,
+        },
       });
     } catch (error) {
       console.error("Error fetching medicine data:", error);
       setError("Failed to fetch medicine data. Please try again.");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -93,7 +99,7 @@ function FindMedicine() {
         <h2 className="fm-title">Find Your Medicine</h2>
 
         <div className="fm-input-group relative">
-          <FaSearch className="fm-icon" style={{ color: "#14967f" }}/>
+          <FaSearch className="fm-icon" style={{ color: "#14967f" }} />
           <input
             type="text"
             placeholder="Search for medicines & health products"
@@ -103,18 +109,22 @@ function FindMedicine() {
           />
         </div>
 
-        <div className="flexrow"
-        style={{
+        <div
+          className="flexrow"
+          style={{
             display: "flex",
             flexDirection: "row",
             width: "800px",
             maxWidth: "100%",
             gap: "20px",
-            marginBottom: "10px"
+            marginBottom: "10px",
           }}
         >
-          <div className="fm-input-groups relative"  style={{ position: "relative", flex: 1 }}>
-            <FaCapsules className="fm-icon" style={{ color: "#14967f" }}/>
+          <div
+            className="fm-input-groups relative"
+            style={{ position: "relative", flex: 1 }}
+          >
+            <FaCapsules className="fm-icon" style={{ color: "#14967f" }} />
             <input
               type="text"
               placeholder="Dosage/Strength"
@@ -123,13 +133,16 @@ function FindMedicine() {
               className="fm-input with-icon"
               style={{
                 width: "100%",
-                boxSizing: "border-box"
+                boxSizing: "border-box",
               }}
             />
           </div>
 
-          <div className="fm-input-groups relative"  style={{ position: "relative", flex: 1 }}>
-            <FaSortNumericUp className="fm-icon" style={{ color: "#14967f" }}/>
+          <div
+            className="fm-input-groups relative"
+            style={{ position: "relative", flex: 1 }}
+          >
+            <FaSortNumericUp className="fm-icon" style={{ color: "#14967f" }} />
             <input
               type="number"
               placeholder="Quantity"
@@ -138,14 +151,24 @@ function FindMedicine() {
               className="fm-input with-icon"
               style={{
                 width: "100%",
-                boxSizing: "border-box"
+                boxSizing: "border-box",
               }}
             />
           </div>
         </div>
-        {error && <p style={{ color: "red", textAlign: "center", marginBottom: "10px" }}>{error}</p>}
-        <button className="fp-search-btn" onClick={handleSearch}>
-          Search Nearby
+        {error && (
+          <p
+            style={{ color: "red", textAlign: "center", marginBottom: "10px" }}
+          >
+            {error}
+          </p>
+        )}
+        <button
+          className="fp-search-btn"
+          onClick={handleSearch}
+          disabled={loading}
+        >
+          {loading ? "Searching ..." : "Search Nearby"}
         </button>
         <div className="fm-register">
           <span>Register medicine?</span>

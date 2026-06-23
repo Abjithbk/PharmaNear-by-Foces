@@ -4,7 +4,7 @@ import { Link, useNavigate } from 'react-router-dom'
 
 const BACKEND_URL = (import.meta.env.VITE_BACKEND_URL || "http://localhost:5000").replace(/\/+$/, "");
 
-function SignupPage({ onSwitchToLogin }) {
+function SignupPage() {
   const [userName, setUserName] = useState('')
   const [owner, setOwner] = useState('')
   const [city, setCity] = useState('')
@@ -21,6 +21,12 @@ function SignupPage({ onSwitchToLogin }) {
     event.preventDefault()
     setIsLoading(true)
     setError('')
+
+    if (password !== confirmPassword) {
+      setError('Passwords do not match')
+      setIsLoading(false)
+      return
+    }
 
     try {
       const response = await fetch(`${BACKEND_URL}/api/pharmacy/signup`, {
@@ -43,7 +49,7 @@ function SignupPage({ onSwitchToLogin }) {
         try {
           const errorData = JSON.parse(errorText);
           errorMessage = errorData.message || errorMessage;
-        } catch (e) {
+        } catch {
           errorMessage = errorText || errorMessage;
         }
         throw new Error(errorMessage);
@@ -183,6 +189,21 @@ function SignupPage({ onSwitchToLogin }) {
                 required
               />
             </div>
+
+            {error && (
+              <div className="error-message" style={{ 
+                color: '#dc3545', 
+                fontSize: '0.9rem', 
+                textAlign: 'center', 
+                marginBottom: '10px',
+                padding: '8px',
+                backgroundColor: '#f8d7da',
+                border: '1px solid #f5c6cb',
+                borderRadius: '4px'
+              }}>
+                {error}
+              </div>
+            )}
 
             <button className="btn-primary" type="submit" disabled={isLoading}>
               {isLoading ? 'Creating account...' : 'Create account'}

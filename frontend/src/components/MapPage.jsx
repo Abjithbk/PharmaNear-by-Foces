@@ -11,16 +11,16 @@ const BACKEND_URL = (import.meta.env.VITE_BACKEND_URL || "http://localhost:5000"
 
 const fallbackPharmacies = [
   {
-    id: "68db6260929396828f54d0f0",
-    name: "PharmaDude",
-    address: "Mallappally",
-    closing: "9 PM",
-    phone: "1234567890",
-    lat: 9.449826294407545,
-    lng: 76.6701444361027,
-    stock: "in-stock",
-    price: 50,
-    quantity: 10,
+    id: "fallback-no-results",
+    name: "No pharmacies found",
+    address: "Try searching for a different medicine",
+    closing: "N/A",
+    phone: "N/A",
+    lat: 9.449826,
+    lng: 76.670144,
+    stock: "out-of-stock",
+    price: 0,
+    quantity: 0,
   },
 ];
 

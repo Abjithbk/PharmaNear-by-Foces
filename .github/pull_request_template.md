@@ -9,6 +9,11 @@ Closes #
 
 ## 📸 Screenshots
 <!-- If your changes affect the UI, please include before/after screenshots here. -->
+*If your changes affect the UI, please include before/after screenshots.*
+
+| Before | After |
+| ------ | ----- |
+|        |       |
 
 ## ✅ Testing Checklist
 <!-- Please review and check the applicable items. -->
