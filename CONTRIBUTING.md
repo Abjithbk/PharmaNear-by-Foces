@@ -38,6 +38,21 @@ We use `pnpm` as our package manager. Please ensure you have Node.js and `pnpm` 
 
    > **🛡️ Security Note:** We strongly recommend prepending `sfw` to all package manager commands (like `sfw pnpm install`) to protect against malicious dependencies.
 
+## 🎨 Editor Configuration
+
+To maintain consistency and ensure clean code formatting across all contributions, we require everyone to enable the **Insert Final Newline** setting in their text editors.
+
+### VS Code
+If you are using Visual Studio Code:
+1. Open your settings (`Ctrl + ,` or `Cmd + ,`).
+2. Search for `Insert Final Newline`.
+3. Check the box for **Files: Insert Final Newline** (or add `"files.insertFinalNewline": true` to your `settings.json`).
+
+### Why is this required?
+- **Git Diff Cleanliness**: When you append lines to a file that doesn't end with a newline, Git views the addition of a newline to the previous line as a modification. This creates unnecessary noise in pull requests and triggers a `\ No newline at end of file` warning.
+- **POSIX/UNIX Standard Compliance**: POSIX defines a line as ending with a newline character (`\n`). Many shell tools, compilers, and parsers expect files to end with a newline and might miss the last line or fail to process it correctly without one.
+- **Consistency**: It prevents formatting conflicts and unnecessary churn between different developers' code editors.
+
 ## 🧪 Testing Your Changes (CRITICAL)
 
 **Before opening a Pull Request, you MUST test your changes locally!**

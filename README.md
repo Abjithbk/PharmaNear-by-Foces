@@ -100,6 +100,8 @@ Follow these steps to set up and run the project locally.
 - **Node.js** (v18 or higher) - [Download here](https://nodejs.org/) _(New? Watch a [YouTube Guide](https://www.youtube.com/watch?v=EIJeLiaGfA0))_
 - **MongoDB** (Optional) - The app uses an in-memory DB locally, but you can use [MongoDB Atlas](https://www.mongodb.com/atlas) for production/cloud setups.
 - **Git** - [Download here](https://git-scm.com/)
+- **Editor Settings (VS Code)**: Ensure that **Insert Final Newline** is enabled in your editor settings (`"files.insertFinalNewline": true` in VS Code).
+  - *Why?* POSIX standard defines a line as ending with a newline. Keeping a trailing newline prevents Git diff noise (it avoids modifying the last line just to add a newline later, which triggers a `\ No newline at end of file` warning) and ensures consistency across various dev tools and OS platforms.
 
 ### 1. Clone the Repository
 
