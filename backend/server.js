@@ -36,12 +36,13 @@ app.use(cors({
 
 app.use(express.json());
 let mongoUrl = process.env.MONGO_URL;
+export let mongoServerInstance = null;
 
 if (!mongoUrl) {
   console.log("⚠️ MONGO_URL not found. Starting in-memory MongoDB for local development...");
   const { MongoMemoryServer } = await import("mongodb-memory-server");
-  const mongoServer = await MongoMemoryServer.create();
-  mongoUrl = mongoServer.getUri();
+  mongoServerInstance = await MongoMemoryServer.create();
+  mongoUrl = mongoServerInstance.getUri();
 }
 
 mongoose

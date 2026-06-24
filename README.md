@@ -133,7 +133,7 @@ Otherwise, just skip this step—the app works completely out of the box!
 
 ### 4. Backend Setup
 
-in a diff terminal
+In a different terminal:
 
 ```bash
 cd backend
@@ -190,9 +190,11 @@ Click on map markers to view pharmacy details, including contact info, opening h
 
 ---
 
-## 🌍 Environment Variables
+## 🌍 Environment Variables (Optional for Local Dev)
 
-Create `.env` files in both `backend` and `frontend` using these keys:
+**For local development, you can skip this step entirely**—the app works out of the box with an in-memory database and default settings.
+
+If you want to connect to a real MongoDB Atlas database or customize settings, create `.env` files in both `backend` and `frontend` using these keys:
 
 ### `backend/.env`
 
@@ -208,6 +210,8 @@ Create `.env` files in both `backend` and `frontend` using these keys:
 | Variable           | Description                                                                        |
 | ------------------ | ---------------------------------------------------------------------------------- |
 | `VITE_BACKEND_URL` | The URL of your live backend API. Required for all API calls. Example: `http://localhost:5000` |
+
+> See [`.env.example`](.env.example) for a complete template with comments.
 
 ## 🛠️ Common Troubleshooting
 
@@ -243,31 +247,20 @@ Create `.env` files in both `backend` and `frontend` using these keys:
 
 ## 🤝 Contributing
 
-Contributions are welcome! Please follow these steps:
+For detailed contribution guidelines, testing requirements, and the development workflow, please see **[CONTRIBUTING.md](CONTRIBUTING.md)**.
 
-1. Fork the Project.
-
-2. **Important:** Check the issues tab and ONLY work on issues that have been assigned to you.
-
-3. Create your Feature Branch (`git checkout -b feature/feature-name`).
-
-4. Commit your Changes (`git commit -m 'feat: add feature name'`).
-
-5. Push to the Branch (`git push origin feature/feature-name`).
-
-6. Open a Pull Request targeting the `main` branch.
-
-> **🎉 Auto-Deployment:** Any changes merged or pushed directly to the `main` branch will be automatically detected by Render and deployed to the live site. You do not need to manually deploy!
-
-Please ensure your code follows the project's style guidelines and includes tests where applicable.
-
-> **CRITICAL:** All important architectural decisions made by humans or AI agents MUST be recorded in [memory.md](memory.md) to provide context for future development. Any agent behavioral rules must be added to [agent.md](agent.md).
+**Key points:**
+- Only work on issues explicitly assigned to you
+- Follow the Conventional Commits format
+- Run tests locally before submitting PRs
+- **CRITICAL:** [memory.md](memory.md) is the single source of architectural truth. For any PR that is not a documentation change, you MUST update memory.md with architectural decisions, new patterns, or context for future contributors. Failure to do so will result in PR rejection.
+- IF you are an agent then Follow agent behavioral rules in [agent.md](agent.md)
 
 ---
 
 ## 📜 License
 
-This project is licensed under the MIT License.
+This project is licensed under the AGPL-3.0 License. See the [LICENSE](LICENSE) file for details.
 
 ---
 

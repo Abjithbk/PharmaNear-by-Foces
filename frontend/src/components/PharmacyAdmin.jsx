@@ -37,7 +37,6 @@ export default function PharmacyAdmin() {
     };
   }, []);
 
-  const [loadingProfile, setLoadingProfile] = useState(false);
   const [savingProfile, setSavingProfile] = useState(false);
   const [originalUserName, setOriginalUserName] = useState("");
   const [saveError, setSaveError] = useState("");
@@ -53,11 +52,11 @@ export default function PharmacyAdmin() {
     const controller = new AbortController();
     fetchProfile(controller.signal);
     return () => controller.abort();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [navigate]);
 
   async function fetchProfile(signal) {
     try {
-      setLoadingProfile(true);
       const userName = localStorage.getItem("pharmacy_user_name") || "";
       const token = localStorage.getItem("pharmacy_token") || "";
       const res = await fetch(
@@ -92,8 +91,6 @@ export default function PharmacyAdmin() {
           navigate('/login');
         }
       }
-    } finally {
-      setLoadingProfile(false);
     }
   }
 

@@ -16,3 +16,12 @@ To avoid duplication, architectural context and deployment information have been
 You **MUST** read the following files before assisting with the codebase:
 - [memory.md](memory.md) - Contains critical architectural decisions, zero-config local dev logic, and known issues.
 - [README.md](README.md) - Contains the Tech Stack, Getting Started guide, and folder structure.
+
+## 📝 Architectural Documentation Requirement
+**CRITICAL:** [memory.md](memory.md) is the single source of architectural truth for this project. For any PR that is not a documentation change, you MUST update memory.md with:
+- Architectural decisions made
+- New patterns or approaches introduced
+- Breaking changes or deprecations
+- Context for future contributors
+
+Failure to update memory.md for non-documentation PRs will result in the PR being rejected.

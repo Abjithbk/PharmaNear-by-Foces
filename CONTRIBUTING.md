@@ -99,7 +99,7 @@ Examples:
 3. Run the tests locally using `pnpm run test` and ensure they pass.
 4. Push your branch and open a Pull Request targeting the `main` branch.
 5. Fill out the PR template completely. Link the issue your PR resolves (e.g., "Closes #42").
-6. Await review from maintainers and make any requested changes.
+6. Await review from maintainers or automated reviewing tools and make any requested changes are made.
 
 ## 🏛️ Architecture Goals & Memory
 
@@ -109,4 +109,15 @@ Examples:
   - **Controllers (`controllers/`)**: Business logic. They receive requests from routes, interact with models, and send responses.
   - **Routes (`routes/`)**: Define the API endpoints and map them to the appropriate controller functions.
   - **Middleware (`middleware/`)**: Authentication (e.g., verifying JWTs) and error handling functions.
-- **CRITICAL:** All important architectural decisions made by humans or AI agents MUST be recorded in the `memory.md` file to provide context for future development.
+
+## 📝 Architectural Documentation Requirement (CRITICAL)
+
+**[memory.md](memory.md) is the single source of architectural truth for this project.**
+
+For any PR that is **not** a documentation change (i.e., changes to `.md` files), you MUST update `memory.md` with:
+- Architectural decisions made
+- New patterns or approaches introduced
+- Breaking changes or deprecations
+- Context for future contributors
+
+**Failure to update memory.md for non-documentation PRs will result in the PR being rejected.** This ensures that architectural knowledge is centralized and accessible to all contributors.

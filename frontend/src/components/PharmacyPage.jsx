@@ -24,7 +24,6 @@ export default function PharmacyPage() {
     latitude: "",
     longitude: "",
   });
-  const [loadingProfile, setLoadingProfile] = useState(false);
   const [loading, setLoading] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const [error, setError] = useState("");
@@ -65,7 +64,7 @@ export default function PharmacyPage() {
         throw new Error(errorData.message || 'Add medicine failed');
       }
 
-      const data = await response.json()
+      await response.json()
       setStockItems((prev) => [newItem, ...prev]);
       setMedicineName("");
       setQuantity("");
@@ -116,13 +115,13 @@ export default function PharmacyPage() {
         try {
           const errorData = JSON.parse(errorText);
           errorMessage = errorData.message || errorMessage;
-        } catch (e) {
+        } catch {
           errorMessage = errorText || errorMessage;
         }
         throw new Error(errorMessage);
       }
 
-      const data = await response.json()
+      await response.json()
       const updatedStock = stockItems.map(item => 
         item.name === editingItem.name ? { ...item, quantity: editingItem.quantity, price: editingItem.price } : item
       );
@@ -134,8 +133,6 @@ export default function PharmacyPage() {
       if (error.message === 'No token provided') {
       
         navigate('/login');
-      } else {
-        
       }
     }
   }
@@ -171,13 +168,13 @@ export default function PharmacyPage() {
           try {
             const errorData = JSON.parse(errorText);
             errorMessage = errorData.message || errorMessage;
-          } catch (e) {
+          } catch {
             errorMessage = errorText || errorMessage;
           }
           throw new Error(errorMessage);
         }
 
-        const data = await response.json()
+        await response.json()
         const updatedStock = stockItems.filter(item => item.id !== id);
         setStockItems(updatedStock);
         
@@ -186,8 +183,6 @@ export default function PharmacyPage() {
         if (error.message === 'No token provided') {
           
           navigate('/login');
-        } else {
-          
         }
       }
   }
@@ -224,7 +219,6 @@ export default function PharmacyPage() {
 
     async function fetchProfile() {
       try {
-        setLoadingProfile(true);
         const res = await fetch(`${BACKEND_URL}/api/pharmacy/profile?user_name=${encodeURIComponent(userName)}`, {
           signal: controller.signal,
           headers: {
@@ -251,8 +245,6 @@ export default function PharmacyPage() {
             navigate('/login');
           }
         }
-      } finally {
-        setLoadingProfile(false);
       }
     }
 
