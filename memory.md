@@ -69,6 +69,16 @@ Connects patients with nearby pharmacies to check medication stock. Features use
 
 - Contributors must only work on issues explicitly assigned to them by a maintainer.
 - Enforced via `CONTRIBUTING.md`, `agent.md`, PR template checklist, and issue template warnings.
+
+
+
+### Environment Variable Configuration (June 2026)
+- Frontend components use `VITE_BACKEND_URL` to connect to the backend API.
+- Hardcoded `http://localhost:5000` fallback URLs were removed from frontend components.
+- `frontend/.env-sample` serves as a reference template for required variables.
+- When `VITE_BACKEND_URL` is undefined (e.g. in test environments), components fall back to an empty string (`""`) to prevent `TypeError` when calling `.replace()`.
+
+
   
 ### Backend Modularization Refactor (June 2026)
 
