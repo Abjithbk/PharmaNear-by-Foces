@@ -207,7 +207,7 @@ Create `.env` files in both `backend` and `frontend` using these keys:
 
 | Variable           | Description                                                                        |
 | ------------------ | ---------------------------------------------------------------------------------- |
-| `VITE_BACKEND_URL` | The URL of your live backend API. If blank, it defaults to `http://localhost:5000` |
+| `VITE_BACKEND_URL` | The URL of your live backend API. Required for all API calls. Example: `http://localhost:5000` |
 
 ## 🛠️ Common Troubleshooting
 
