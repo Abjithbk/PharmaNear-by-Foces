@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { FaHome, FaCapsules, FaSearch } from "react-icons/fa";
+import { FaHome, FaCapsules } from "react-icons/fa";
 import "./NotFoundPage.css";
 
 function NotFoundPage() {
