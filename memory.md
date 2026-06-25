@@ -114,6 +114,11 @@ Connects patients with nearby pharmacies to check medication stock. Features use
 - Invalid input returns `400 Bad Request` with structured error array: `{ error, details: [{ field, message }] }`.
 - Valid registrations proceed unchanged through existing flow.
 
+### PharmacyPage Styling Refactor (June 2026)
+- Inline styling in `frontend/src/components/PharmacyPage.jsx` was moved into `frontend/src/components/PharmacyPage.css`.
+- The refactor replaced inline `style={{ ... }}` props with semantic class-based styling for form icons, table layout, loading/empty states, and edit/action buttons.
+- Layout, spacing, and responsive behavior were preserved while making the component easier to maintain.
+
 ## 🔗 Related Documentation
 
 - [agent.md](agent.md) - Strict behavioral rules for AI Agents.
