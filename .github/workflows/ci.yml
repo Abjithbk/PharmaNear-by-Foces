@@ -16,6 +16,8 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
 
     - name: Verify memory.md is updated for code changes
       if: github.event_name == 'pull_request'
