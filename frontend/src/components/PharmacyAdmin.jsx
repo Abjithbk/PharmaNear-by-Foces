@@ -57,6 +57,7 @@ export default function PharmacyAdmin() {
 
   return () => controller.abort();
 }, [navigate, fetchProfile]);
+
   const fetchProfile = useCallback(async (signal) => {
   try {
     const userName = localStorage.getItem("pharmacy_user_name") || "";
@@ -124,6 +125,7 @@ export default function PharmacyAdmin() {
       }
       const res = await fetch(`${BACKEND_URL}/api/pharmacy/profile`, {
         method: "PUT",
+        credentials: 'include',
         headers: { 
           "Content-Type": "application/json",
           'Authorization': `Bearer ${token}`,
@@ -385,11 +387,11 @@ export default function PharmacyAdmin() {
 
       <footer className="fm-footer">
         <div className="fm-footer-links">
-          <Link to="/about">About Us</Link>
-          <Link to="/services">Services</Link>
-          <Link to="/contact">Contact</Link>
-          <Link to="/privacy-policy">Privacy Policy</Link>
-          <Link to="/terms-of-service">Terms of Service</Link>
+          <Link to="/">About Us</Link>
+          <Link to="/">Services</Link>
+          <Link to="/">Contact</Link>
+          <Link to="/">Privacy Policy</Link>
+          <Link to="/">Terms of Service</Link>
         </div>
       </footer>
     </div>
