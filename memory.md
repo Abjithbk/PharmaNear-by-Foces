@@ -56,6 +56,12 @@ Connects patients with nearby pharmacies to check medication stock. Features use
 
 - `server.js` skips all database seeding (`seedFakeData`, medicine fetch, pharmacy seed) when `NODE_ENV === "test"` to prevent `MongoTopologyClosedError` in Jest.
 
+## Vite Development Proxy (June 2026)
+
+- frontend/vite.config.js configures a development server proxy that forwards requests beginning with `/api` to `http://localhost:5000`.
+- This enables zero-config local development for contributors by allowing frontend API requests to work without requiring a frontend `.env`file    containing `VITE_BACKEND_URL`.
+- Production deployments continue to rely on `VITE_BACKEND_URL` as configured by the hosting platform.
+
 ### Package Management Security (June 2026)
 
 - All networked package manager commands (`pnpm install`, `npm`, `pip`, etc.) must be run through the `sfw` (Socket Firewall) tool to protect against malicious dependencies.
