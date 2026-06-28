@@ -135,6 +135,33 @@ Connects patients with nearby pharmacies to check medication stock. Features use
 ### API Response Rename (June 2026)
 - For semantic clarity, the populated pharmacy object in the `/api/drugs` response was renamed from `pharmacy_id` to `pharmacy`.
 
+### Authentication Token Migration to HTTP-Only Cookies (June 2026)
+- Removed JWT token storage from localStorage in LoginPage.jsx and SignupPage.jsx
+- All fetch calls in PharmacyPage.jsx and PharmacyAdmin.jsx now use `credentials: 'include'`
+- Removed manual `Authorization: Bearer` headers from all API calls
+- Added `/api/pharmacy/logout` route to clear httpOnly cookie on logout
+- `pharmacy_user_name` and `pharmacy_id` still stored in localStorage for UI display only
+- Eliminates XSS token theft vulnerability
+### PWA & Favicon Configuration (June 2026)
+- Added a complete favicon kit (16x16, 32x32, 192x192, 512x512) and `apple-touch-icon.png` to `frontend/public/`.
+- Added `site.webmanifest` to enable Progressive Web App (PWA) installation and cross-browser compatibility.
+- Updated `frontend/index.html` with standard `<link>` tags for these assets.
+- **Note:** The original `favicon.png` (512x512) was retained as a fallback for legacy browsers and older bookmarking systems that may still look for the default `/favicon.png` path.
+
+### Reusable Header & Footer Components (June 2026)
+- Introduced reusable `Header.jsx` and `Footer.jsx` under `frontend/src/components/`.
+- Replaced duplicated header and footer markup across applicable frontend pages with reusable components.
+- This refactor reduces code duplication and simplifies future layout updates while preserving existing functionality.
+
+
+### Legal Documentation Enhancement (June 2026)
+
+- Replaced placeholder content in `frontend/src/components/TermsOfService.jsx` with a comprehensive Terms of Service document tailored to PharmaNear.
+- Replaced placeholder content in `frontend/src/components/PrivacyPolicy.jsx` with a detailed Privacy Policy covering data handling, user rights, and platform responsibilities.
+- Updated `frontend/src/components/InfoPage.jsx` to support rendering structured JSX content, enabling legal pages to include section headings, paragraphs, and lists instead of plain text strings.
+- Enhanced `frontend/src/components/InfoPage.css` to improve readability and presentation of legal documents through refined typography, section styling, and responsive layout adjustments.
+- These changes are limited to frontend presentation and content improvements and do not affect existing routes, APIs, or backend behavior.
+
 ## 🔗 Related Documentation
 
 - [.agents/AGENTS.md](file:///d:/git%20folder/PharmaNear/.agents/AGENTS.md) - Auto-loading workspace customization rules and behavior guidelines for AI agents.

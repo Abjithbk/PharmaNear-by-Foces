@@ -47,6 +47,7 @@ export default function PharmacyPage() {
       
       const response = await fetch(`${BACKEND_URL}/api/pharmacy/stock`, {
         method: 'POST',
+        credentials: 'include',
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${token}`
@@ -98,6 +99,7 @@ export default function PharmacyPage() {
       
       const response = await fetch(`${BACKEND_URL}/api/pharmacy/stock`, {
         method: 'PATCH',
+        credentials: 'include',
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${token}`
@@ -153,6 +155,7 @@ export default function PharmacyPage() {
         
         const response = await fetch(`${BACKEND_URL}/api/pharmacy/stock`, {
           method: 'DELETE',
+          credentials: 'include',
           headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${token}`
@@ -222,6 +225,7 @@ export default function PharmacyPage() {
       try {
         const res = await fetch(`${BACKEND_URL}/api/pharmacy/profile?user_name=${encodeURIComponent(userName)}`, {
           signal: controller.signal,
+          credentials: 'include',
           headers: {
             'Authorization': `Bearer ${token}`,
           },
@@ -256,6 +260,7 @@ export default function PharmacyPage() {
           `${BACKEND_URL}/api/pharmacy/stock?pharmacy_id=${encodeURIComponent(pharmacyId)}`,
           {
             method: 'GET',
+            credentials: 'include',
             signal: controller.signal,
             headers: {
               'Authorization': `Bearer ${token}`,
